@@ -1,0 +1,15 @@
+\chapter{Conclusion}
+
+\section{Success}
+
+The purpose of this project was to evaluate different machine learning techniques for classifying Twitter messages in languages other than English. This goal has been achieved to an desirable level and provides a solid platform which could be commercially exploited. Our results for English were consistent with the literature and new results for other languages have been established. Moreover, I have shown that Twitter's built-in language filtering performs substantially worse for languages other than English, which inversely correlates to classification accuracy. I also demonstrate that consideration needs to be given to using emoticons as labels for sentiment classification due to variable accuracy of this approach.
+
+\section{Challenges}
+
+In retrospect, too much time was spent working on finalising the dataset without verifying the assumptions regarding the use of emoticons and built-in language filtering, which should have been an essential aim of the project. I therefore had to abandon the original aim to build an API for supplementing the Twitter stream with sentiment data and work on verifying the ground truth instead. Additionally, both Maximum Entropy and Support Vector Machines classifiers proven to be more difficult to implement than anticipated. Having said that, the experience gained in tackling those projects has proven invaluable to understanding the difficulty of successfully implementing machine learning techniques in real-life applications. 
+
+\section{Scope for Further Research}
+
+This dissertation has only touched upon the possibilities of utilising the lingual diversity of Twitter in the field of sentiment classification and further research could be devoted into verifying alternative approaches and factors influencing accuracy of classification. An obvious extension to this dissertation would involve improving Twitter's native language classification. It could also explore alternative methods of collecting pre-labelled training data other than relying on emoticons.
+
+Performance and scalability, and parallelisation in particular, is something that could be explored in more detail. As Twitter approaches handling thousands of tweets per second, further research could be carried out in distributed algorithms which have performance characteristics necessary to handle that amount of data.

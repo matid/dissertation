@@ -1,0 +1,306 @@
+\chapter{Evaluation}
+
+In this chapter I present the results of accuracy tests for implemented classification methods. I also describe the experimental setup and discuss any trade-offs involved. Given that evaluation is a substantial part of the project, special care was taken in designing the testing protocol and ensuring all assumptions have been verified and tested before reaching any conclusions.
+
+\section{Experimental Setup}
+
+\subsection{Data Gathering}
+
+I had access to a public dataset of Twitter messages in English with their associated sentiment to begin with. This however does not extend to other languages, so collecting my own data was necessary. This was achieved using Twitter's Application Programming Interface (API), for which I had written a simple scraper in Ruby.
+
+The API has a built-in language filter which I have used to query for Tweets in specific languages involved in my experiment. It has to be noted that this method of discerning between different languages is not impeccable, especially considering how English loan-words can often be used.
+
+\subsection{Ground Truth}
+
+It has been shown by J. Read \cite{Emoticons} that emoticons can be used as noisy labels to perform distant supervised learning. We further tested this assumption with the aid of crowd-sourcing. Since multiple emoticons can be associated with either of the two sentiment classes, we use a mapping which can be found in Table~\ref{tab:emoticons}. Queries are handled natively by Twitter API, which when asked for messages containing ':)' will return all tweets which contain positive emoticons and conversely for ':('.
+
+It is also assumed that the language of the message is correctly determined by Twitter.
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{ | c | c | }
+      \hline
+        Emoticons mapped to :) & Emoticons mapped to :( \\
+      \hline
+        :)  & :( \\
+        :-) & :-( \\
+        : ) & : ( \\
+        =)  & \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:emoticons}List of emoticons}
+  \end{center}
+\end{table}
+
+\subsubsection{Verification}
+
+I verify my assumptions regarding sentiment and language filtering by manually classifying both properties for a randomly selected subset of tweets.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | }
+      \hline
+        Language & \# of tweets & \# of judgements \\
+      \hline
+        English & 200 & 609 \\
+        Spanish & 171 & 368 \\
+        German & 200 & 627 \\
+        Italian & 71 & 143 \\
+        Polish & 130 & 399 \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:crowdflower1}Crowdflower}
+  \end{center}
+\end{table}
+
+In order to analyse the results let me first define the following terms:
+
+\begin{itemize}
+  \item \textbf{Agreement.} A judgement in which the worker agreed with the original classification label.
+  \item \textbf{Disagreement.} A judgement in which the worker disagreed with the original classification label.
+  \item \textbf{Confidence.} Ratio of the number of judgements agreeing on the language or sentiment of a tweet over the total number of judgements.
+  \item \textbf{Accuracy.} The likelihood that a single tweet has been correctly classified.
+\end{itemize}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | }
+      \hline
+        \multirow{2}{*}{Language} & \multicolumn{2}{ | c | }{ Agreements } & \multicolumn{2}{ | c | }{ Disagreements } & \multirow{2}{*}{Accuracy} \\
+        \cline{2-5}
+        & \# & Confidence & \# & Confidence & \\
+      \hline
+        English & 193 & 99.40\% & 7 & 76.23\% & 96.75\% \\
+        Spanish & 152 & 99.52\% & 19 & 82.22\% & 90.44\% \\
+        German & 70 & 96.12\% & 130 & 83.79\% & 44.19\% \\
+        Italian & 13 & 93.42\% & 58 & 92.36\% & 23.35\% \\
+        Polish & 25 & 97.32\% & 105 & 90.08\% & 26.73\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:crowdflower2}Language confidence}
+  \end{center}
+\end{table}
+
+High confidence in both agreements and disagreements with the original labelling implies that the workers can indeed be trusted and do not differ significantly in their opinions on tweets' language (see Table \ref{tab:crowdflower1}). This is a reassuring verification of the scientific method. However, the accuracy of Twitter's native language filtering is somewhat worrying. It appears that whilst it can identify English and Spanish with 90\%+ accuracy, it performs substantially worse for other tested languages I tested. Workers reported that only 23\% of messages labeled by Twitter as Italian were indeed Italian.
+
+This introduces a need for significant improvement over Twitter's native language classification, something that I would like to explore in future research.
+        
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | }
+      \hline
+        \multirow{2}{*}{Language} & Sentiment & \multicolumn{2}{ | c | }{ Agreements } & \multicolumn{2}{ | c | }{ Disagreements } & \multirow{2}{*}{Accuracy} \\
+        \cline{3-6}
+        & & \# & Confidence & \# & Confidence & \\
+      \hline
+        \multirow{2}{*}{English} & + & 56 & 88.35\% & 54 & 79.87\% & 54.86\% \\
+         & - & 44 & 83.27\% & 56 & 73.45\% & 51.51\% \\
+      \hline
+        \multirow{2}{*}{Spanish} & + & 54 & 82.48\% & 46 & 84.39\% & 51.72\% \\
+         & - & 30 & 100\% & 41 & 97.56\% & 40.69\% \\
+      \hline
+        \multirow{2}{*}{German} & + & 35 & 80.76\% & 65 & 85.44\% & 37.73\% \\
+         & - & 33 & 79.86\% & 67 & 85.87\% & 35.82\% \\
+      \hline
+        \multirow{2}{*}{Italian} & + & 13 & 87.15\% & 36 & 88.89\% & 31.29\% \\
+         & - & 9 & 100.00\% & 13 & 96.87\% & 50.65\% \\
+      \hline
+        \multirow{2}{*}{Polish} & + & 38 & 87.00\% & 62 & 84.40\% & 42.73\% \\
+         & - & 7 & 70.61\% & 30 & 80.85\% & 28.89\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:crowdflower2}Sentiment confidence}
+  \end{center}
+\end{table}
+
+The assumption that emoticons can be used reliably as a way of discerning between positive and negative messages has also been questioned by the results (see Table \ref{tab:crowdflower2}). It appears that whilst the disparity between languages is much smaller than in case of language classification, the performance is still subpar with accuracy between 28.89 and 54.86\%.
+
+With this level of error introduced by both of these assumptions it is easy to question relative differences in performance between classifiers.
+
+\subsection{Data Cleaning}
+
+For the purpose of training, the following post-processing filters are used:
+
+\begin{enumerate}
+  \item Emoticons are removed as otherwise they would affect accuracy as shown in previous research \cite{TwitterDistantSupervision09}.
+  \item Repeated tweets are removed so that each tweet is considered only once.
+  \item Retweets are removed as they are in principle just repeated tweets. Retweeting is a process of taking a Twitter message someone else had posted and rebroadcasting it to your followers. This is done by ignoring all messages containing the '\verb|RT |' keyword. A different keyword---`via'---can also be used, but less so for verbatim retweets \cite{Retweets}, hence the decision not to filter it out.
+\end{enumerate}
+
+\subsection{Data Sets}
+
+We use data sets of equal cardinality in order to control for differences in performance of machine learning algorithms in relation to training data size. Data set for each language contains 150,000 tweets (75,000 positive and 75,000 negative).
+
+\section{Execution}
+
+\subsection{Validation}
+
+Naive Bayes, Maximum Entropy and Support Vector Machines experiments are performed using 10-fold cross validation.
+
+We partition our sample randomly into 10 subsamples, retaining one as validation data for testing and use the remaining 9 subsamples for training. We repeat this process 10 times using different subsamples as validation data.
+
+In each trial we compute and record metrics explained below.
+
+\subsection{Metrics}
+
+To test the three algorithms I measure precision, recall and f-score (as defined below) over the entire dataset as well as individual classes.
+
+We define precision and recall as follows:
+
+$$\textrm{precision} = \frac{\textrm{number of correctly classified tweets}}{\textrm{total number of classified tweets}}$$
+
+$$\textrm{recall} = \frac{\textrm{number of correctly classified tweets}}{\textrm{total number of tweets}}$$
+
+Subsequently I average the results of all trials to arrive at the final evaluation metric for each algorithm.
+
+\section{Results}
+
+The results of the evaluation follow.
+
+\subsection{English}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | }
+      \hline
+        & \multicolumn{3}{ | c | }{\bf Precision} & \multicolumn{3}{ | c | }{\bf Recall} \\
+      \hline
+        {\bf Classifier} & + & - & both & + & - & both \\
+      \hline
+        Baseline & 89.25\% & 46.04\% & 69.38\% & 37.92\% & 16.65\% & 27.29\% \\
+        Na\"ive Bayes & 70.71\% & 72.47\% & 71.59\% & 70.71\% & 72.47\% & 71.59\% \\
+        MaxEnt & 75.87\% & \textbf{75.87\%} & \textbf{75.87\%} & 75.87\% & \textbf{75.87\%} & \textbf{75.87\%} \\
+        SVM & \textbf{89.60\%} & 40.13\% & 64.87\% & \textbf{89.60\%} & 40.13\% & 64.87\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:results-english}Evaluation results for English tweets.}
+  \end{center}
+\end{table}
+
+Baseline results for English appear to be in line with what A. Go et al. had already established in their research (65.2\%). Interestingly, there is a large disparity in accuracy between sentiment classes--positive messages were recognised over twice as often with similar increase in precision. This can probably be attributed to English having a broader vocabulary for describing positive emotions as established by A. Kramer \cite{GrossNationalHappiness}.
+
+Aforementioned disparity disappears in Bayesian classifiers, where performance between classes varies by less than 1pp. Our results hover appear to be on average 10pp lower than what A. Go et al. presented in their paper. This could be partially due to a larger data set (1,600,000 vs. 150,000 tweets), but also due to centring their queries used to create the test set around certain keywords, whereas I captured a snapshot of broader Twitter activity.
+
+Maximum Entropy offers consistency similar to Na\"ive Bayes with accuracy and recall improved by 4pp. This makes Maximum Entropy the best choice for precise sentiment classification for English.
+
+Support Vector Machines also show disparity in precision between positive and negative classes (89.60\% vs. 40.13\%) and subsequently average slightly lower than Na\"ive Bayes in both metrics. Our results for the positive class however outperformed previously quoted paper by 7.4pp.
+
+\subsection{Spanish}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | }
+      \hline
+        & \multicolumn{3}{ | c | }{\bf Precision} & \multicolumn{3}{ | c | }{\bf Recall} \\
+      \hline
+        {\bf Classifier} & + & - & both & + & - & both \\
+      \hline
+        Baseline & 42.81\% & \textbf{77.44\%} & 61.15\% & 22.78\% & 46.39\% & 34.59\% \\
+        Na\"ive Bayes & 66.37\% & 69.71\% & 68.04\% & 66.37\% & 69.71\% & 68.04\% \\
+        MaxEnt & 68.13\% & 71.47\% & \textbf{69.80\%} & 68.13\% & \textbf{71.47\%} & \textbf{69.80\%} \\
+        SVM & \textbf{96.67\%} & 25.33\% & 61.00\% & \textbf{96.67\%} & 25.33\% & 61.00\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:results-spanish}Evaluation results for Spanish tweets}
+  \end{center}
+\end{table}
+
+Baseline results for Spanish are similar to what we have established for English, with approximately 8pp difference in precision (in favour of English) and recall (in favour of Spanish). Remarkably, disparity between sentiment classes is reversed, with negativity being recognised more effectively. This can be due to cultural and linguistic differences between the two languages (e.g. different ratio of positive and negative words).
+
+Using Na\"ive Bayes introduces a significant improvement in precision (6.89pp) and recall (33.45pp) and the gap in performance for different polarities have significantly shrunk.
+
+Maximum Entropy performs only slightly better than Na\"ive Bayes with smaller disparity between results, making it the best performing classifier for this language.
+
+SVM offers no improvement in precision over the baseline, but recall increases from 34.59\% to 61.00\%. On average, SVM performs worse than Na\"ive Bayes, but was surprisingly effective in classifying positive tweets.
+
+\subsection{German}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | }
+      \hline
+        & \multicolumn{3}{ | c | }{\bf Precision} & \multicolumn{3}{ | c | }{\bf Recall} \\
+      \hline
+        {\bf Classifier} & + & - & both & + & - & both \\
+      \hline
+        Baseline & 39.45\% & 66.94\% & 53.63\% & 9.16\% & 16.57\% & 12.86\% \\
+        Na\"ive Bayes & 73.65\% & 62.65\% & 68.15\% & 73.65\% & 62.65\% & 68.15\% \\
+        MaxEnt & 75.07\% & \textbf{70.40\%} & \textbf{72.73\%} & 75.07\% & \textbf{70.40\%} & \textbf{72.73\%} \\
+        SVM & \textbf{95.87\%} & 34.67\% & 65.27\% & \textbf{95.87\%} & 34.67\% & 65.27\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:results-german}Evaluation results for German tweets}
+  \end{center}
+\end{table}
+
+Baseline results for German are meagre compared to English or Spanish. With only 53.63\% precision and 12.85\% recall, it appears that bag-of-word dictionary count does not work very well in German. This is most likely due to the fact that on average 55.81\% of the tweets will have been incorrectly classified as German by Twitter (as per Table \ref{tab:crowdflower1}).
+
+Na\"ive Bayes brings classification performance to the level comparable to other languages, only 3.44pp short of what we seen for English. This means an improvement of over 600\% in recall over the baseline.
+
+SVM offers similar performance, but again seems to be biased towards positive messages (95.87\% accuracy compared to only 34.67\%).
+
+\subsection{Italian}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | }
+      \hline
+        & \multicolumn{3}{ | c | }{\bf Precision} & \multicolumn{3}{ | c | }{\bf Recall} \\
+      \hline
+        {\bf Classifier} & + & - & both & + & - & both \\
+      \hline
+        Baseline & 71.35\% & 39.94\% & 54.58\% & 13.41\% & 8.60\% & 11.01\% \\
+        Na\"ive Bayes & 74.39\% & 63.79\% & 69.09\% & 74.39\% & 63.79\% & 69.09\% \\
+        MaxEnt & 77.20\% & \textbf{71.60\%} & \textbf{74.40\%} & 77.20\% & \textbf{71.60\%} & \textbf{74.40\%} \\
+        SVM & \textbf{96.00\%} & 30.80\% & 63.40\% & \textbf{96.00\%} & 30.80\% & 63.40\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:results-italian}Evaluation results for Italian tweets}
+  \end{center}
+\end{table}
+
+Baseline results for Italian are comparable to German, with the exception of reversed polarity bias.
+
+Again, use of machine learning techniques offers a substantial improvement over the baseline, especially in terms of recall. Na\"ive Bayes performs fairly consistently for both polarities with approximately 10pp difference.
+
+Maximum Entropy comes on top leading by over 5pp both in precision and recall.
+
+Similarly to what we had seen before, SVM is substantially biased towards one sentiment class and subsequently performs slightly worse on average.
+
+\subsection{Polish}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c | }
+      \hline
+        & \multicolumn{3}{ | c | }{\bf Precision} & \multicolumn{3}{ | c | }{\bf Recall} \\
+      \hline
+        {\bf Classifier} & + & - & both & + & - & both \\
+      \hline
+        Baseline & 42.96\% & 69.05\% & 55.14\% & 6.23\% & 8.76\% & 7.50\% \\
+        Na\"ive Bayes & 70.49\% & 59.91\% & 65.20\% & 70.49\% & 59.91\% & 65.20\% \\
+        MaxEnt & 77.73\% & \textbf{66.53\%} & \textbf{72.13\%} & 77.73\% & \textbf{66.53\%} & \textbf{72.13\%} \\
+        SVM & \textbf{94.53\%} & 36.00\% & 65.27\% & \textbf{94.53\%} & 36.00\% & 65.27\% \\
+      \hline
+    \end{tabular}
+    \caption{\label{tab:results-polish}Evaluation results for Polish tweets}
+  \end{center}
+\end{table}
+
+Polish has the worst baseline accuracy of all evaluated languages with a disappointing 7.50\% recall. This can probably be attributed to a high degree of inflexion which renders keyword-based approaches substantially less effective without stemming.
+
+Na\"ive Bayes offers a nice improvement over the baseline, but still subpar compared to other languages.
+
+Maximum Entropy offers a substantial improvement over Na\"ive Bayes and Support Vector Machines, leading by 7pp.
+
+Support Vector Machine are highly polarised, but still manage to perform marginally better than Na\"ive Bayes (by 0.07pp) on average.
+
+\section{Discussion}
+
+All in all, machine learning techniques offer a substantial improvement over the baseline for all evaluated languages. Maximum Entropy appears to offer superior performance for all languages, with Na\"ive Bayes coming second, which seems to be consistent with the improvements seen by A. Go et al \cite{TwitterDistantSupervision09}. This introduces a tradeoff between computational performance and accuracy, as MaxEnt works substantially slower and requires more memory.
+
+Performance seems to suffer proportionally to language classification accuracy as per Table \ref{tab:crowdflower1}. Baseline precision dropped by over 10pp as language accuracy fell below  50\%. Future research could therefore concentrate on how accurate language classification affects sentiment classification performance.
+
+\section{Summary}
+
+In this section I had shown that Twitter's native language filtering performs substantially worse for languages other than English and Spanish. I have also shown that whilst emoticons can be used as noisy labels for training data, the accuracy of this technique varies from language to language. I also established that machine learning techniques offer substantial improvements in classification accuracy for all evaluated languages with Maximum Entropy and Na\"ive Bayes offering the most consistent performance.

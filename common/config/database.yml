@@ -1,0 +1,2 @@
+adapter: sqlite3
+database: <%= Dissertation.root + "common" + "db" + "tweets.sqlite3" %>

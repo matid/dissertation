@@ -1,0 +1,2 @@
+rvm use jruby-1.6.1@dissertation --create
+# rvm use ruby-1.9.2@dissertation --create

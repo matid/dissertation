@@ -1,0 +1,136 @@
+Using Classifier::Baseline
+==================
+Classifier::Baseline
+==================
+Language: English
+Average
+------------------
+Positive
+------------------
+Precision: 89.25%
+Recall: 37.92%
+Fscore: 53.23%
+------------------
+Negative
+------------------
+Precision: 46.04%
+Recall: 16.65%
+Fscore: 24.46%
+------------------
+Overall
+------------------
+Precision: 69.38%
+Recall: 27.29%
+Fscore: 39.17%
+==================
+English & Classifier::Baseline & 89.25\% & 46.04\% & 69.38\% & 37.92\% & 16.65\% & 27.29\% & 53.23\% & 24.46\% & 39.17\% \\
+==================
+
+==================
+Classifier::Baseline
+==================
+Language: Spanish
+Average
+------------------
+Positive
+------------------
+Precision: 42.81%
+Recall: 22.78%
+Fscore: 29.74%
+------------------
+Negative
+------------------
+Precision: 77.44%
+Recall: 46.39%
+Fscore: 58.03%
+------------------
+Overall
+------------------
+Precision: 61.15%
+Recall: 34.59%
+Fscore: 44.18%
+==================
+Spanish & Classifier::Baseline & 42.81\% & 77.44\% & 61.15\% & 22.78\% & 46.39\% & 34.59\% & 29.74\% & 58.03\% & 44.18\% \\
+==================
+
+==================
+Classifier::Baseline
+==================
+Language: German
+Average
+------------------
+Positive
+------------------
+Precision: 39.45%
+Recall: 9.16%
+Fscore: 14.87%
+------------------
+Negative
+------------------
+Precision: 66.94%
+Recall: 16.57%
+Fscore: 26.56%
+------------------
+Overall
+------------------
+Precision: 53.63%
+Recall: 12.86%
+Fscore: 20.75%
+==================
+German & Classifier::Baseline & 39.45\% & 66.94\% & 53.63\% & 9.16\% & 16.57\% & 12.86\% & 14.87\% & 26.56\% & 20.75\% \\
+==================
+
+==================
+Classifier::Baseline
+==================
+Language: Italian
+Average
+------------------
+Positive
+------------------
+Precision: 71.35%
+Recall: 13.41%
+Fscore: 22.58%
+------------------
+Negative
+------------------
+Precision: 39.94%
+Recall: 8.60%
+Fscore: 14.15%
+------------------
+Overall
+------------------
+Precision: 54.58%
+Recall: 11.01%
+Fscore: 18.32%
+==================
+Italian & Classifier::Baseline & 71.35\% & 39.94\% & 54.58\% & 13.41\% & 8.60\% & 11.01\% & 22.58\% & 14.15\% & 18.32\% \\
+==================
+
+==================
+Classifier::Baseline
+==================
+Language: Polish
+Average
+------------------
+Positive
+------------------
+Precision: 42.96%
+Recall: 6.23%
+Fscore: 10.88%
+------------------
+Negative
+------------------
+Precision: 69.05%
+Recall: 8.76%
+Fscore: 15.55%
+------------------
+Overall
+------------------
+Precision: 55.14%
+Recall: 7.50%
+Fscore: 13.20%
+==================
+Polish & Classifier::Baseline & 42.96\% & 69.05\% & 55.14\% & 6.23\% & 8.76\% & 7.50\% & 10.88\% & 15.55\% & 13.20\% \\
+==================
+

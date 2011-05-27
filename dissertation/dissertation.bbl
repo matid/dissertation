@@ -1,0 +1,43 @@
+\begin{thebibliography}{1}
+
+\bibitem{TwitterDistantSupervision09}
+Richa~Bhayani Alec~Go and Lei Huang.
+\newblock Twitter sentiment classification using distant supervision.
+\newblock 2009.
+
+\bibitem{Crowdsourcing}
+Ed~H.~Chi Aniket~Kittur and Bongwon Suh.
+\newblock Crowdsourcing for usability: Using micro-task markets for rapid,
+  remote, and low-cost user measurements.
+\newblock 2009.
+
+\bibitem{PragProg}
+Andrew Hunt.
+\newblock {\em Pragmatic Programmer}.
+\newblock Addison-Wesley, 1999.
+
+\bibitem{GrossNationalHappiness}
+Adam~D.I. Kramer.
+\newblock An unobtrusive behavioral model of ``gross national happiness''.
+\newblock In {\em CHI '10 Proceedings of the 28th international conference on
+  Human factors in computing systems}, 2010.
+
+\bibitem{Retweets}
+Atebits LLC.
+\newblock ``rt'' vs ``via''. round 2.
+\newblock \url{http://blog.atebits.com/2009/01/rt-vs-via-round-2/}.
+
+\bibitem{PangAndLee}
+Bo~Pang and Lillian Lee.
+\newblock Thumbs up? sentiment classification using machine learning
+  techniques.
+\newblock In {\em Proceedings of EMNLP 2002}, pages 79--86, 2002.
+
+\bibitem{Emoticons}
+Jonathon Read.
+\newblock Using emoticons to reduce dependency in machine learning techniques
+  for sentiment classification.
+\newblock In {\em ACLstudent '05 Proceedings of the ACL Student Research
+  Workshop}, 2005.
+
+\end{thebibliography}

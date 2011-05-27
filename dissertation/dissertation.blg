@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2010)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: dissertation.aux
+A level-1 auxiliary file: coversheet.aux
+A level-1 auxiliary file: proforma.aux
+A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: preparation.aux
+A level-1 auxiliary file: implementation.aux
+A level-1 auxiliary file: evaluation.aux
+A level-1 auxiliary file: conclusion.aux
+A level-1 auxiliary file: bibliography.aux
+The style file: plain.bst
+A level-1 auxiliary file: proposal.aux
+Database file #1: bibliography.bib
+Warning--empty journal in TwitterDistantSupervision09
+Warning--empty journal in Crowdsourcing
+You've used 7 entries,
+            2118 wiz_defined-function locations,
+            545 strings with 5198 characters,
+and the built_in function-call counts, 1794 in all, are:
+= -- 161
+> -- 67
+< -- 1
++ -- 28
+- -- 20
+* -- 78
+:= -- 304
+add.period$ -- 21
+call.type$ -- 7
+change.case$ -- 30
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 88
+empty$ -- 173
+format.name$ -- 20
+if$ -- 386
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 7
+newline$ -- 38
+num.names$ -- 14
+pop$ -- 54
+preamble$ -- 1
+purify$ -- 24
+quote$ -- 0
+skip$ -- 62
+stack$ -- 0
+substring$ -- 56
+swap$ -- 15
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 26
+warning$ -- 2
+while$ -- 16
+width$ -- 8
+write$ -- 70
+(There were 2 warnings)

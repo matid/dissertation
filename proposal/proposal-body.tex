@@ -1,0 +1,286 @@
+\vfil
+
+\centerline{\Large Computer Science Tripos Part II Project Proposal}
+\vspace{0.4in}
+\centerline{\Large Sentiment Analysis for Multilingual Tweets}
+\vspace{0.4in}
+\centerline{\large M. Drozdzynski, King's College}
+\vspace{0.3in}
+\centerline{\large Originator: Dr~Daniele~Quercia}
+\vspace{0.3in}
+\centerline{\large 22 October 2010}
+
+\vfil
+
+\subsection*{Special Resources Required}
+
+File space on PWF -- 2 GB \\
+Developer Account at Twitter \\
+Dataset of English tweets \\
+Use of my own machine (MacBook Pro)
+
+\vspace{0.2in}
+
+\noindent
+{\bf Project Supervisor:} Dr~Daniele~Quercia
+\vspace{0.2in}
+
+\noindent
+{\bf Director of Studies:} Dr~Simone~Teufel
+\vspace{0.2in}
+\noindent
+
+\noindent
+{\bf Project Overseers:} Dr~A.~Copestake \& Dr~R.~Harle
+
+\vfil
+\pagebreak
+
+\section{Introduction}
+
+Approaches for automatically classifying the sentiment (either positive or negative) of Twitter messages have been recently introduced. They are used by online shoppers to check the sentiment associated with products, or by companies to monitor the popularity of their brands. One limitation of those approaches is that they work for Twitter messages in English. This project considers the three most promising existing approaches (Na\"{\i}ve Bayes, Maximum Entropy, and SVM) and evaluates them for Twitter messages in a number of continental European languages. The three approaches will be made available through an API (similar to http://twittersentiment.appspot.com/).
+
+\section{Starting Point}
+
+This project builds upon two previously published papers on sentiment analysis of Twitter messages:
+
+\begin{itemize}
+
+\item Alec Go et al. -- \emph{Twitter Sentiment Classification using Distant Supervision}:  \footnote{\url{http://www.stanford.edu/~alecmgo/papers/TwitterDistantSupervision09.pdf}}
+
+\item Hyung-il Ahn et al. -- \emph{``How Incredibly Awesome!" -- Click Here to Read More}\footnote{\url{http://web.media.mit.edu/~hiahn/publications/ahn-etal-icwsm2010.pdf}}
+
+\end{itemize}
+
+Significant research will need to be done around sentiment classification using Na\"{\i}ve Bayes, Maximum Entropy and Support Vector Machines.
+My prior experience in creating web applications and interacting with Twitter API will also be useful to this project.
+
+The data set for English containing over 1,000,000 classified tweets has already been collected and will be provided by the Project Supervisor.
+
+\section{Substance and Structure of the Project}
+
+This project spans the domains of information retrieval, natural language processing and web development and can subsequently be divided into sections representing each of these three modules.
+
+Work will commence by implementing a scraper which collect necessary training and test data from Twitter. The API provides an interface to query for Twitter messages in 19 different languages (Arabic, Danish, Dutch, English, Farsi / Persian, Finnish, French, German, Hungarian, Icelandic, Italian, Japanese, Norwegian, Polish, Portuguese, Russian, Spanish, Swedish, Thai) and allows for crawling tweets without violating any Terms of Service. The scope of this project will be limited to the following 5 languages, chosen to be spoken by either me or the Project Supervisor should a fallback to manual sentiment classification be required:
+
+\begin{enumerate}
+
+\item English
+\item Spanish
+\item German
+\item Italian
+\item Polish
+
+\end{enumerate}
+
+The approach I describe will however be easily replicable to all remaining languages available via the API provided enough time to collect necessary training data.
+
+In order to easily separate tweets into training sets of positive and negative sentiment, the scraper will run two individual queries for `:)' and `:(', with results from the former being qualified as positive and the latter as negative. Twitter API uses the following equivalence classes for emoticons: `:)', `:-)', `: )', `:D' and `=)' are mapped to `:)' and will subsequently be marked as positive; `:(', `:-(' and `: (' are mapped to `:(' and thus marked as negative. These emoticons will then be stripped off to avoid biasing the classifiers towards them.
+
+As determined in previously cited paper on \emph{Twitter Sentiment Classification using Distant Supervision}, this approach has been proven successful and will provide a working base for the classifiers. To further validate this approach, a random manual check will be carried out on 100 positive and 100 negative emoticons in each language to estimate accuracy of our training data set.
+
+Further time will be spent studying the following classification algorithms: Na\"{\i}ve Bayes, Maximum Entropy and Support Vector Machines. I am hoping to be able to utilise existing solutions, hence research will be done into freely available implementations (including, but not limited to, \emph{Weka}, \emph{libsvm} and \emph{SVM Light}) to verify if they meet the needs of this project.
+
+Accuracy of classification algorithms will be measured by determining the number of correctly classified tweets. Two different metrics will be provided: first determined using leave-one-out and second 5-fold cross-validation, provided the latter could be determined.
+
+Later in the project significant work will be done on creating a web application to utilise classification tools implemented in previous sections. The main goal of the application is to aid potential users in monitoring sentiment for particular Twitter queries and plot it against time or location. An API will also be provided which will enable running search queries against Twitter and returning results supplemented by sentiment analysis.
+
+\section{Success Criteria}
+
+\subsection*{Essential aims}
+
+For the successful completion of the project, the following criteria shall be met:
+
+\begin{enumerate}
+
+\item Collection of a limited number (1,000) of tweets in the following four languages: Spanish, German, Italian and Polish and implementation of feature reduction \& duplicate filtering algorithms.
+
+\item Evaluating the classifiers against the existing dataset of English tweets.
+
+\item Preliminary results of classification using the limited dataset of Spanish, German, Italian and Polish tweets using the leave-one-out cross-validation technique.
+
+\item API: Querying Twitter API for a given keyword or user and classifying returned tweets.
+
+\item Application: Plotting sentiment for a given keyword or user over time.
+
+\end{enumerate}
+
+\subsection*{Desirable aims}
+
+\begin{enumerate}
+
+\item Collection of a larger dataset for Spanish, German, Italian \& Polish
+
+\item Classification of the extended dataset and evaluation using 5-fold cross-validation technique.
+
+\item Application: Plotting sentiment for a given keyword or user over location.
+
+\end{enumerate}
+
+\section{Plan of Work}
+
+\subsection*{Aim}
+
+My aim is to consider and analyse three classification algorithms (Na\"{\i}ve Bayes, Maximum Entropy and Support Vector Machines) with respect to their accuracy in determining sentiments of multilingual tweets, as well as create an web application which can be used to plot sentiment of tweets over time or location.
+
+\subsection*{Preparation}
+
+Research into relevant topics will be carried out in the first 4 weeks of the project. During this time a scraper will be written and preliminary data will be collected for all four languages.
+
+\subsection*{Implementation}
+
+Approximately 10 weeks are allocated to the implementation of the project. An iterative methodology will be followed and upon successful completion of all iterations of the project all desired features will be included.
+
+\subsection*{Evaluation}
+
+My project will be evaluated against the criteria set out in section 4 of this document. A successful project would meet the essential goals, and if possible the desirable ones.
+
+\subsection*{Timeline and Milestones}
+
+The following timetable divides the time starting November 1st until the due date into 2-week iterations with individual goals to be achieved by the end of each block. Upon completion of these tasks, the final working project together with the dissertation will have been completed.
+
+\subsubsection*{Michaelmas Term}
+
+\noindent
+Weeks 1 to 2: WB 01/11/10 and 08/11/10
+
+\begin{itemize}
+
+\item \emph{Research:} Twitter API
+\item \emph{Research:} Sentiment classification
+\item Set up development environment
+\item \emph{Implementation:} Twitter scraper with a working duplicate filter. Successfully mine samples of 20 tweets per language
+
+\end{itemize}
+
+\noindent
+Weeks 3 to 4: WB 15/11/10 and 22/11/10
+
+\begin{itemize}
+
+\item \emph{Implementation:} Feature reduction algorithms -- parsing out Twitter specific properties (usernames, links), normalisation of repeated letters
+\item Collect preliminary data sets for all four languages
+\item \emph{Research:} Na\"{\i}ve Bayes, Maximum Entropy, Support Vector Machines
+
+\end{itemize}
+
+\noindent
+Weeks 5 to 6: WB 29/11/10 and 6/12/10
+
+\begin{itemize}
+
+\item \emph{Research:} Data mining and classification software
+\item Outline the overall structure of the dissertation
+\item Complete the Introduction and Preparation chapters of the dissertation
+
+\end{itemize}
+
+\subsubsection*{Christmas Vacation}
+
+\noindent
+Weeks 7 to 8: WB 13/12/10 and 17/01/11
+
+\begin{itemize}
+
+\item \emph{Implementation:} Na\"{\i}ve Bayes
+\item Running the classifier against tweets
+\item Evaluation of accuracy metrics
+\item Section on Na\"{\i}ve Bayes in Implementation and Evaluation chapters
+
+\end{itemize}
+
+\subsubsection*{Lent Term}
+
+\noindent
+Weeks 9 to 10: WB 24/01/11 and 31/01/11
+
+\begin{itemize}
+
+\item \emph{Implementation:} Maximum Entropy
+\item Running the classifier against tweets
+\item Evaluation of accuracy metrics
+\item Section on Maximum Entropy in Implementation and Evaluation chapters
+\item \emph{Milestone:} 04/02/11 Progress Report due
+
+\end{itemize}
+
+\noindent
+Weeks 11 to 12: WB 07/02/11 and 14/02/11
+
+\begin{itemize}
+
+\item \emph{Implementation:} Support Vector Machines
+\item Running the classifier against tweets
+\item Evaluation of accuracy metrics
+\item Section on SVM in Implementation and Evaluation chapters
+
+\end{itemize}
+
+\noindent
+Weeks 13 to 14: WB 21/02/10 and 28/02/11
+
+\begin{itemize}
+
+\item \emph{Implementation:} API for querying Twitter API and supplementing the results with sentiment analysis
+\item Section on API in the Implementation and Evaluation chapters
+
+\end{itemize}
+
+\noindent
+Weeks 15 to 16: WB 07/03/11 and 14/03/11
+
+\begin{itemize}
+
+\item \emph{Implementation:} Application for plotting sentiment of tweets over time and, if time permits, location.
+\item Section on the Application in the Implementation and Evaluation chapters
+
+\end{itemize}
+
+\subsubsection*{Easter Vacation}
+
+\noindent
+Weeks 17 to 18: WB 21/03/11 and 28/03/11
+
+\begin{itemize}
+
+\item Refinements and finalisation
+
+\end{itemize}
+
+\subsubsection*{Easter Term}
+
+\noindent
+Week 19: WB 25/04/11
+
+\begin{itemize}
+
+\item Evaluation chapter complete
+
+\end{itemize}
+
+\noindent
+Week 20: WB 02/05/11
+
+\begin{itemize}
+
+\item Conclusion chapter complete
+
+\end{itemize}
+
+\noindent
+Week 21: WB 9/05/11
+
+\begin{itemize}
+
+\item Formatting and finalisation of dissertation. Printed and bound by end of the week.
+
+\end{itemize}
+
+\noindent
+Week 22: WB 16/05/11
+
+\begin{itemize}
+
+\item{\emph{Milestone.} 20/05/11 Dissertation Due}
+
+\end{itemize}
